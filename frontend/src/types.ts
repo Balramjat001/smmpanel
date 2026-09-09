@@ -1,0 +1,3 @@
+export type User = { id: string; username: string; email: string; role: 'USER' | 'ADMIN'; emailVerified?: boolean; balance?: string | number; totalSpent?: string | number; referralCode?: string; createdAt?: string; _count?: { orders: number } };
+export type Service = { id: string; serviceId: number; name: string; rate: string; minQuantity: number; maxQuantity: number; averageTime: string; description: string; category: { name: string } };
+export type Order = { id: string; orderNumber: number; link: string; quantity: number; charge: string; status: string; createdAt: string; service: Service };
