@@ -28,3 +28,11 @@ With `DEMO_MODE=true`, email verification codes are logged by the API, provider 
 ## Production notes
 
 Use a managed PostgreSQL database, HTTPS-only cookies, a strong JWT secret, a real SMTP transport, a compliant provider API, a supported payment gateway, and object storage for QR uploads. Never commit `.env`, provider keys, or SMTP credentials. The backend uses Decimal columns and Prisma transactions for wallet mutations.
+
+For a Render deployment, create the backend and frontend services separately because this repository does not contain a Render blueprint. Set these environment variables in the backend service:
+
+- `DATABASE_URL`: the PostgreSQL connection string supplied by Render PostgreSQL; it must not contain `localhost`.
+- `FRONTEND_URL`: the exact deployed frontend origin, including `https://` and no trailing slash. Multiple origins may be comma-separated.
+- `JWT_SECRET`: a long random production secret.
+
+Set `VITE_API_URL` in the frontend service before its Vite build to the deployed backend origin, including `https://` and no `/api` suffix. The frontend build command is `npm install && npm run build` from the `frontend` directory, with `frontend/dist` as the publish directory. Local development continues to default to `http://localhost:4000`.
